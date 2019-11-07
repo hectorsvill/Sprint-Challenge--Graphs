@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-
+from path import Path
 import random
 
 # Load world
@@ -29,7 +29,7 @@ player = Player("Name", world.startingRoom)
 traversalPath = ["w", "w", "s","s", "e", "e", "n", "n", "n", "n", "s", "s", "e", "e"]
 
 
-
+traversalPath = Path(player).getPath()
 
 # TRAVERSAL TEST
 visited_rooms = set()

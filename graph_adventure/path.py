@@ -11,4 +11,4 @@ class Path:
 
 
 
-        return []
+        return ["n", "s"]
