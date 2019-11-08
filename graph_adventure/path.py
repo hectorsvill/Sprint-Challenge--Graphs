@@ -16,8 +16,8 @@ class Path:
         while len(self.mapped) < 499:
             if self.player.currentRoom.id not in self.mapped:
                 currentroomID = self.player.currentRoom.id
-                
                 exits = self.player.currentRoom.getExits()
+                # not a mapped room add to map
                 self.mapped[currentroomID] = exits
                 self.mapped[currentroomID].remove(backTrack[-1])
             # when players hits dead end, backtrack and store path
@@ -26,6 +26,7 @@ class Path:
                 path.append(back)
                 self.player.travel(back)
 
+            # Get next move
             move = self.mapped[self.player.currentRoom.id].pop(0)
             path.append(move)
 
@@ -38,51 +39,10 @@ class Path:
                 backTrack.append("w")
             elif move == "w":
                 backTrack.append("e")
-
+            
+            # travel to next room
             self.player.travel(move)
         
-
-        
         # print(self.mapped)
-        print(path)
+        # print(path)
         return path
-
-
-
-
-
-    # def getPath(self):
-    #     print(self.player)
-        # currentRoom = self.player.currentRoom
-        # roomid = currentRoom.id
-        
-        # coord = (currentRoom.x, currentRoom.y)
-        # print(exits, coord, roomid)
-        # path = []
-
-        # s = Stack()
-        # for e in self.player.currentRoom.getExits(): 
-        #     s.push(e)
-        # visited = set()
-        
-        # while s.size() > 0:
-        #     v = s.pop()
-        #     self.player.travel(v)
-        #     if v not in visited:
-        #         print(v)
-                
-        #         path.append(v)
-
-        #         visited.add(v)
-
-        #         exits = self.player.currentRoom.getExits()
-        #         for e in exits:
-        #             # path_copy = path.copy()
-        #             # path_copy.append(e)
-        #             s.push(e)
-        
-        # print(visited)
-        # return path
-
-    
-
