@@ -1,58 +1,29 @@
-
 from room import Room
-
-
-class Queue():
-    def __init__(self):
-        self.queue = []
-    def enqueue(self, value):
-        self.queue.append(value)
-    def dequeue(self):
-        if self.size() > 0:
-            return self.queue.pop(0)
-        else:
-            return None
-    def size(self):
-        return len(self.queue)
-
-
-class Stack():
-    def __init__(self):
-        self.stack = []
-    def push(self, value):
-        self.stack.append(value)
-    def pop(self):
-        if self.size() > 0:
-            return self.stack.pop()
-        else:
-            return None
-    def size(self):
-        return len(self.stack)
-
-
-# mapped[self.player.currentRoom.id] = {'n': "?", 's': "?",'e': "?",'w': "?", }
 
 class Path:
     def __init__(self, player):
         self.player = player
-        self.mapped = dict()
+        
+        # create adjacency list with room as key and exits array as value 
+        self.mapped = dict() 
 
 
-    def getRoomPaths(self):
-        exits = self.player.currentRoom.getExits()
-        self.mapped[self.player.currentRoom.id] = dict()
-        for e in exits:
-            if self.player.currentRoom.getRoomInDirection(e) is not None:
-                dirID = self.player.currentRoom.getRoomInDirection(e).id
-                self.mapped[self.player.currentRoom.id][e] =  dirID
-            else :
-                self.mapped[self.player.currentRoom.id][e] = "?"
+    # def getRoomPaths(self):
+    #     exits = self.player.currentRoom.getExits()
+    #     self.mapped[self.player.currentRoom.id] = dict()
+    #     for e in exits:
+    #         if self.player.currentRoom.getRoomInDirection(e) is not None:
+    #             dirID = self.player.currentRoom.getRoomInDirection(e).id
+    #             self.mapped[self.player.currentRoom.id][e] =  dirID
+    #         else :
+    #             self.mapped[self.player.currentRoom.id][e] = "?"
 
     
     def dfs(self):
         path = []
         backTrack = []
 
+        # {0: ['n', 's', 'w', 'e']}
         self.mapped[self.player.currentRoom.id] = self.player.currentRoom.getExits()
 
         while len(self.mapped) < 499:
@@ -63,6 +34,8 @@ class Path:
                 self.mapped[currentroomID] = exits
 
                 self.mapped[currentroomID].remove(backTrack[-1])
+
+
             while not len(self.mapped[self.player.currentRoom.id])  :
                 back = backTrack.pop()
                 path.append(back)
@@ -72,7 +45,7 @@ class Path:
             move = self.mapped[self.player.currentRoom.id].pop(0)
             path.append(move)
 
-
+            # get inverse room fro backTrack
             if move == "n":
                 backTrack.append("s")
             elif move == "s":
@@ -82,12 +55,11 @@ class Path:
             elif move == "w":
                 backTrack.append("e")
 
-
-            
             self.player.travel(move)
         
 
         
+        # print(self.mapped)
         print(path)
         return path
 
