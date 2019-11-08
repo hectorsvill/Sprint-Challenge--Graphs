@@ -12,7 +12,8 @@ class Path:
 
         # {0: ['n', 's', 'w', 'e']}
         self.mapped[self.player.currentRoom.id] = self.player.currentRoom.getExits()
-
+        
+        # graph consisting of 500 rooms
         while len(self.mapped) < 499:
             if self.player.currentRoom.id not in self.mapped:
                 currentroomID = self.player.currentRoom.id
