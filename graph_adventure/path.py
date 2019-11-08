@@ -40,9 +40,10 @@ class Path:
         exits = self.player.currentRoom.getExits()
         
         mapped = dict()
-        mapped[self.player.currentRoom.id] = {'n': "?", 's': "?",'e': "?",'w': "?", }
+        # mapped[self.player.currentRoom.id] = {'n': "?", 's': "?",'e': "?",'w': "?", }
 
 
+        mapped[self.player.currentRoom.id] = dict()
         for e in exits:
             mapped[self.player.currentRoom.id][e] = self.player.currentRoom.getRoomInDirection(e).id
 
@@ -50,6 +51,8 @@ class Path:
 
 
         print(mapped)
+
+        return []
     def get_map(self):
 
         self.player.travel("n")
