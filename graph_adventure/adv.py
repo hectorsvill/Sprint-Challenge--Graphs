@@ -29,7 +29,8 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-path = Path(player).getPath()
+path = Path(player)
+path.dft()
 print(path)
 
 

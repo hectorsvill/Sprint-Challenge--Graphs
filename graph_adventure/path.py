@@ -48,40 +48,55 @@ class Path:
             else :
                 self.mapped[self.player.currentRoom.id][e] = "?"
 
+    
+    def dft(self):
+        s = Stack()
+        [s.push(e) for e in self.player.currentRoom.getExits()]
+        visited = set()
+
+        # path = []
+        while s.size() > 0:
+            v = s.pop()
+
+            if v not in visited:
+                # path.append(v)
+                visited.add(v)
+                for neighbor in self.player.currentRoom.getExits():
+                    s.push(neighbor)
 
 
-    def getPath(self):
-
+    # def getPath(self):
+    #     print(self.player)
         # currentRoom = self.player.currentRoom
         # roomid = currentRoom.id
         
         # coord = (currentRoom.x, currentRoom.y)
         # print(exits, coord, roomid)
-        path = []
+        # path = []
 
-        s = Stack()
-        for e in self.player.currentRoom.getExits(): 
-            s.push(e)
-        visited = set()
+        # s = Stack()
+        # for e in self.player.currentRoom.getExits(): 
+        #     s.push(e)
+        # visited = set()
         
-        while s.size() > 0:
-            v = s.pop()
-            self.player.travel(v)
-            if v not in visited:
-                print(v)
+        # while s.size() > 0:
+        #     v = s.pop()
+        #     self.player.travel(v)
+        #     if v not in visited:
+        #         print(v)
                 
-                path.append(v)
+        #         path.append(v)
 
-                visited.add(v)
+        #         visited.add(v)
 
-                exits = self.player.currentRoom.getExits()
-                for e in exits:
-                    # path_copy = path.copy()
-                    # path_copy.append(e)
-                    s.push(e)
+        #         exits = self.player.currentRoom.getExits()
+        #         for e in exits:
+        #             # path_copy = path.copy()
+        #             # path_copy.append(e)
+        #             s.push(e)
         
-        print(visited)
-        return path
+        # print(visited)
+        # return path
 
-
+    
 
