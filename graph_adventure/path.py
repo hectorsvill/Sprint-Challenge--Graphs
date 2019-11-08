@@ -3,22 +3,9 @@ from room import Room
 class Path:
     def __init__(self, player):
         self.player = player
-        
         # create adjacency list with room as key and exits array as value 
         self.mapped = dict() 
 
-
-    # def getRoomPaths(self):
-    #     exits = self.player.currentRoom.getExits()
-    #     self.mapped[self.player.currentRoom.id] = dict()
-    #     for e in exits:
-    #         if self.player.currentRoom.getRoomInDirection(e) is not None:
-    #             dirID = self.player.currentRoom.getRoomInDirection(e).id
-    #             self.mapped[self.player.currentRoom.id][e] =  dirID
-    #         else :
-    #             self.mapped[self.player.currentRoom.id][e] = "?"
-
-    
     def dfs(self):
         path = []
         backTrack = []
@@ -32,15 +19,12 @@ class Path:
                 
                 exits = self.player.currentRoom.getExits()
                 self.mapped[currentroomID] = exits
-
                 self.mapped[currentroomID].remove(backTrack[-1])
-
-
-            while not len(self.mapped[self.player.currentRoom.id])  :
+            # when players hits dead end, backtrack and store path
+            while not len(self.mapped[self.player.currentRoom.id]):
                 back = backTrack.pop()
                 path.append(back)
                 self.player.travel(back)
-
 
             move = self.mapped[self.player.currentRoom.id].pop(0)
             path.append(move)
