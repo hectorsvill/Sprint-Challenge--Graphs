@@ -51,25 +51,45 @@ class Path:
     
     def dfs(self):
         path = []
+        backTrack = []
 
         self.mapped[self.player.currentRoom.id] = self.player.currentRoom.getExits()
 
-        while len(self.mapped) < 500:
-            # if self.player.currentRoom.id not in self.mapped:
+        while len(self.mapped) < 499:
+            if self.player.currentRoom.id not in self.mapped:
+                currentroomID = self.player.currentRoom.id
                 
-            #     exits = self.player.currentRoom.getExits()
-            #     self.mapped[self.player.currentRoom.id] = exits
-                
+                exits = self.player.currentRoom.getExits()
+                self.mapped[currentroomID] = exits
 
-            
-            move = self.mapped[self.player.currentRoom.id]
+                self.mapped[currentroomID].remove(backTrack[-1])
+            while not len(self.mapped[self.player.currentRoom.id])  :
+                back = backTrack.pop()
+                path.append(back)
+                self.player.travel(back)
+
+
+            move = self.mapped[self.player.currentRoom.id].pop(0)
             path.append(move)
 
-            # backTrack.append()
+
+            if move == "n":
+                backTrack.append("s")
+            elif move == "s":
+                backTrack.append("n")
+            elif move == "e":
+                backTrack.append("w")
+            elif move == "w":
+                backTrack.append("e")
+
+
+            
             self.player.travel(move)
         
 
-            print(path)
+        
+        print(path)
+        return path
 
 
 
