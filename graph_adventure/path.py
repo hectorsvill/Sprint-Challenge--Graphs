@@ -30,29 +30,34 @@ class Stack():
         return len(self.stack)
 
 
-
+# mapped[self.player.currentRoom.id] = {'n': "?", 's': "?",'e': "?",'w': "?", }
 
 class Path:
     def __init__(self, player):
         self.player = player
 
+
+
+
     def getPath(self):
         exits = self.player.currentRoom.getExits()
-        
         mapped = dict()
-        # mapped[self.player.currentRoom.id] = {'n': "?", 's': "?",'e': "?",'w': "?", }
-
 
         mapped[self.player.currentRoom.id] = dict()
+        dirID = None
         for e in exits:
-            mapped[self.player.currentRoom.id][e] = self.player.currentRoom.getRoomInDirection(e).id
+            if self.player.currentRoom.getRoomInDirection(e) is not None:
+                dirID = self.player.currentRoom.getRoomInDirection(e).id
+                mapped[self.player.currentRoom.id][e] =  dirID
+    
 
-
-
-
+        
+        print(dirID)
+        
         print(mapped)
-
         return []
+
+
     def get_map(self):
 
         self.player.travel("n")
