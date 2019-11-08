@@ -35,26 +35,34 @@ class Stack():
 class Path:
     def __init__(self, player):
         self.player = player
+        self.mapped = dict()
 
+
+    def getRoomPaths(self):
+        exits = self.player.currentRoom.getExits()
+        self.mapped[self.player.currentRoom.id] = dict()
+        for e in exits:
+            if self.player.currentRoom.getRoomInDirection(e) is not None:
+                dirID = self.player.currentRoom.getRoomInDirection(e).id
+                self.mapped[self.player.currentRoom.id][e] =  dirID
+            else :
+                self.mapped[self.player.currentRoom.id][e] = "?"
 
 
 
     def getPath(self):
-        exits = self.player.currentRoom.getExits()
-        mapped = dict()
+        self.getRoomPaths()
+        self.player.travel('n')
 
-        mapped[self.player.currentRoom.id] = dict()
-        dirID = None
-        for e in exits:
-            if self.player.currentRoom.getRoomInDirection(e) is not None:
-                dirID = self.player.currentRoom.getRoomInDirection(e).id
-                mapped[self.player.currentRoom.id][e] =  dirID
-    
+        self.getRoomPaths()
+        self.player.travel('n')
+        
+        self.getRoomPaths()
+        self.player.travel('s')
+        
 
-        
-        print(dirID)
-        
-        print(mapped)
+        print(self.mapped)
+        # self.getPath()
         return []
 
 
