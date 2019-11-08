@@ -51,24 +51,6 @@ class Path:
 
 
     def getPath(self):
-        self.getRoomPaths()
-        self.player.travel('n')
-
-        self.getRoomPaths()
-        self.player.travel('n')
-        
-        self.getRoomPaths()
-        self.player.travel('s')
-        
-
-        print(self.mapped)
-        # self.getPath()
-        return []
-
-
-    def get_map(self):
-
-        self.player.travel("n")
 
         # currentRoom = self.player.currentRoom
         # roomid = currentRoom.id
@@ -76,23 +58,29 @@ class Path:
         # coord = (currentRoom.x, currentRoom.y)
         # print(exits, coord, roomid)
         path = []
+
         s = Stack()
-        visited = {}
+        for e in self.player.currentRoom.getExits(): 
+            s.push(e)
+        visited = set()
         
-        s.push(self.player.currentRoom.getExits())
         while s.size() > 0:
-            
-            path = s.pop()
-            v = path[-1]
+            v = s.pop()
+            self.player.travel(v)
             if v not in visited:
-                self.player.travel(v)
+                print(v)
+                
                 path.append(v)
-                visited[v] = path
+
+                visited.add(v)
+
                 exits = self.player.currentRoom.getExits()
                 for e in exits:
-                    path_copy = path.copy()
-                    path_copy.append(e)
-                    s.push(path_copy)
+                    # path_copy = path.copy()
+                    # path_copy.append(e)
+                    s.push(e)
+        
+        print(visited)
         return path
 
 
