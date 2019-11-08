@@ -49,20 +49,30 @@ class Path:
                 self.mapped[self.player.currentRoom.id][e] = "?"
 
     
-    def dft(self):
-        s = Stack()
-        [s.push(e) for e in self.player.currentRoom.getExits()]
-        visited = set()
+    def dfs(self):
+        path = []
 
-        # path = []
-        while s.size() > 0:
-            v = s.pop()
+        self.mapped[self.player.currentRoom.id] = self.player.currentRoom.getExits()
 
-            if v not in visited:
-                # path.append(v)
-                visited.add(v)
-                for neighbor in self.player.currentRoom.getExits():
-                    s.push(neighbor)
+        while len(self.mapped) < 500:
+            # if self.player.currentRoom.id not in self.mapped:
+                
+            #     exits = self.player.currentRoom.getExits()
+            #     self.mapped[self.player.currentRoom.id] = exits
+                
+
+            
+            move = self.mapped[self.player.currentRoom.id]
+            path.append(move)
+
+            # backTrack.append()
+            self.player.travel(move)
+        
+
+            print(path)
+
+
+
 
 
     # def getPath(self):

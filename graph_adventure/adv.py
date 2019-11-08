@@ -30,8 +30,9 @@ player = Player("Name", world.startingRoom)
 
 # FILL THIS IN
 path = Path(player)
-path.dft()
+path.dfs()
 print(path)
+
 
 
 traversalPath = []
